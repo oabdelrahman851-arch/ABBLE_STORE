@@ -227,6 +227,40 @@ section{position:relative; z-index:1; padding:120px 0;}
 .comp-card h4{font-size:16px; font-weight:700; margin-bottom:8px;}
 .comp-card p{font-size:13.5px; color:var(--muted); line-height:1.7;}
 
+/* ---------- Teardown showcase (studio-white card, like a real exploded-view shoot) ---------- */
+.teardown-card{
+  background:linear-gradient(180deg,#fbfbfc,#f2f2f5);
+  border-radius:var(--radius); padding:48px 36px 34px; color:#111114;
+  box-shadow:0 30px 70px rgba(0,0,0,0.35);
+}
+.teardown-row{
+  display:flex; gap:14px; overflow-x:auto; padding:8px 4px 18px;
+  scroll-snap-type:x proximity;
+}
+.teardown-row::-webkit-scrollbar{height:6px;}
+.teardown-row::-webkit-scrollbar-thumb{background:#ddd; border-radius:10px;}
+.td-item{
+  flex:0 0 118px; scroll-snap-align:start;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.td-label{
+  font-size:12.5px; font-weight:700; color:#1a1a1e; line-height:1.5; min-height:34px;
+  display:flex; flex-direction:column; justify-content:flex-end; margin-bottom:8px;
+}
+.td-label small{font-weight:400; color:#8a8a92; font-size:11px;}
+.td-line{width:1px; height:22px; background:#d6d6db; margin-bottom:10px;}
+.td-visual{width:100%; height:190px; filter:drop-shadow(0 16px 22px rgba(0,0,0,0.18));}
+.td-legend{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:22px 18px;
+  padding-top:26px; border-top:1px solid #e2e2e6;
+}
+.td-legend-item{display:flex; align-items:flex-start; gap:10px;}
+.td-legend-item svg{width:22px; height:22px; flex:none; margin-top:2px;}
+.td-legend-item b{display:block; font-size:13.5px; color:#111114; margin-bottom:3px;}
+.td-legend-item span{display:block; font-size:12px; color:#8a8a92; line-height:1.6;}
+.td-footnote{text-align:center; font-size:12px; color:#a3a3aa; margin-top:26px;}
+@media(max-width:900px){ .td-legend{grid-template-columns:repeat(2,1fr);} }
+
 /* ---------- Products ---------- */
 .products-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
 .product-card{
@@ -255,56 +289,67 @@ section{position:relative; z-index:1; padding:120px 0;}
   filter:blur(2px);
 }
 
-/* realistic phone render, pure CSS/no external assets */
-.phone-real{
-  width:104px; height:216px; border-radius:26px; position:relative;
-  background:linear-gradient(150deg,#eef0f3 0%,#c7cad2 30%,#7d818c 65%,#4c4f58 100%);
-  box-shadow:
-    0 26px 50px rgba(0,0,0,0.55),
-    inset 0 0 0 1.5px rgba(255,255,255,0.35),
-    inset 0 -8px 14px rgba(0,0,0,0.25);
+/* realistic phone render — back view, glass body + triangular triple camera,
+   built entirely from CSS gradients/shapes (no external photos, original NOVA mark) */
+.phone-back{
+  width:108px; height:220px; border-radius:30px; position:relative;
   transform:rotateY(-20deg) rotateX(7deg);
   transition:transform .5s ease;
+  box-shadow:
+    0 30px 54px rgba(0,0,0,0.55),
+    inset 0 0 0 1.5px rgba(255,255,255,0.3),
+    inset 0 -10px 20px rgba(0,0,0,0.28);
 }
-.product-card:hover .phone-real{transform:rotateY(-4deg) rotateX(2deg) scale(1.06);}
-.phone-screen{
-  position:absolute; inset:5px; border-radius:21px; overflow:hidden;
-  background:linear-gradient(165deg,#241a4d 0%, #140f2b 55%, #05050a 100%);
+.product-card:hover .phone-back{transform:rotateY(-4deg) rotateX(2deg) scale(1.06);}
+.phone-back.c-copper{background:linear-gradient(155deg,#ffc186 0%,#ff9451 32%,#e56a29 66%,#a94b1c 100%);}
+.phone-back.c-violet{background:linear-gradient(155deg,#cabcff 0%,#8f74ff 32%,#5a3fe0 66%,#372398 100%);}
+.phone-back.c-silver{background:linear-gradient(155deg,#f2f3f6 0%,#d3d6dd 32%,#9498a2 66%,#5b5e68 100%);}
+.phone-back::before{
+  /* glass sheen sweeping diagonally across the panel, like light on glass */
+  content:''; position:absolute; inset:0; border-radius:30px;
+  background:linear-gradient(120deg, rgba(255,255,255,0.32) 0%, transparent 30%, transparent 65%, rgba(0,0,0,0.18) 100%);
 }
-.phone-screen .notch{
-  position:absolute; top:8px; left:50%; transform:translateX(-50%);
-  width:34px; height:7px; border-radius:6px; background:#000;
+.phone-back .frame-edge{
+  position:absolute; inset:0; border-radius:30px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,0.22);
 }
-.phone-screen .clock{
-  position:absolute; top:22px; left:0; right:0; text-align:center;
-  font-family:'Cairo',sans-serif; font-weight:800; font-size:13px; color:#fff;
+.phone-back .logo-mark{
+  position:absolute; left:50%; bottom:56px; transform:translateX(-50%);
+  width:22px; height:22px; opacity:0.5;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,0.35)) drop-shadow(0 -1px 0 rgba(0,0,0,0.25));
 }
-.phone-screen .rings{
-  position:absolute; top:44%; left:50%; transform:translate(-50%,-50%);
-  width:46px; height:46px; border-radius:50%;
-  background:conic-gradient(var(--violet), var(--copper), var(--violet));
-  filter:drop-shadow(0 0 10px rgba(124,92,255,0.6));
+.cam-bump{
+  position:absolute; top:10px; left:10px; width:60px; height:56px; border-radius:18px;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255,255,255,0.28),
+    0 8px 14px rgba(0,0,0,0.4);
 }
-.phone-screen .rings::after{
-  content:''; position:absolute; inset:6px; border-radius:50%; background:#140f2b;
+.phone-back.c-copper .cam-bump{background:linear-gradient(160deg,#ffab68,#c2591f);}
+.phone-back.c-violet .cam-bump{background:linear-gradient(160deg,#a98bff,#4a30bf);}
+.phone-back.c-silver .cam-bump{background:linear-gradient(160deg,#e2e4e9,#8a8e98);}
+.cam-bump .lens{
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle at 32% 28%, #3a3a42 0%, #050507 72%);
+  box-shadow:inset 0 0 0 2px #000, 0 0 0 1px rgba(255,255,255,0.12);
 }
-.phone-screen .dock{
-  position:absolute; bottom:10px; left:10px; right:10px;
-  display:flex; justify-content:space-between;
+.cam-bump .lens::after{
+  content:''; position:absolute; inset:22%; border-radius:50%;
+  background:radial-gradient(circle at 28% 22%, rgba(255,255,255,0.55), transparent 60%);
 }
-.phone-screen .dock i{
-  width:10px; height:10px; border-radius:3px; display:block;
-  background:linear-gradient(135deg,var(--violet),var(--copper));
-  opacity:0.9;
+.cam-bump .lens.l1{width:19px; height:19px; top:5px; left:5px;}
+.cam-bump .lens.l2{width:19px; height:19px; top:5px; left:30px;}
+.cam-bump .lens.l3{width:19px; height:19px; top:29px; left:17px;}
+.cam-bump .flash{
+  position:absolute; top:6px; right:6px; width:7px; height:7px; border-radius:50%;
+  background:radial-gradient(circle, #fff, #d9d9d9); box-shadow:0 0 5px rgba(255,255,255,0.8);
 }
-.phone-cam-bump{
-  position:absolute; top:12px; right:11px; width:20px; height:20px; border-radius:7px;
-  background:radial-gradient(circle at 35% 30%, #4a4d57, #0c0c10);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18);
+.cam-bump .mic{
+  position:absolute; bottom:7px; right:7px; width:5px; height:5px; border-radius:50%;
+  background:#1a1a1a;
 }
 .phone-shine{
-  position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.35) 48%, transparent 60%);
+  position:absolute; inset:0; pointer-events:none; border-radius:30px; overflow:hidden;
+  background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.4) 48%, transparent 60%);
   transform:translateX(-140%);
   transition:transform .9s ease;
 }
@@ -530,40 +575,182 @@ footer{padding:70px 0 40px; position:relative; z-index:1;}
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow" style="margin:0 auto 18px; width:fit-content;">فكّ التركيب</div>
-      <h2>اتفرج على كل قطعة لوحدها</h2>
-      <p>لفّ الموديل فوق واضغط "فكّ التركيب" عشان تشوف كل عنصر بيعمل إيه بالظبط.</p>
+      <h2>عرض تفكيكي كامل</h2>
+      <p>كل طبقة جوه نوفا X1 برو، مفكوكة قدامك بالترتيب — من الغطاء الخارجي لحد الطبقة الأمامية.</p>
     </div>
-    <div class="comp-scroll">
-      <div class="comp-card reveal">
-        <div class="comp-num">01 — الشاشة</div>
-        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="3" stroke="#7c5cff" stroke-width="1.6"/><path d="M9 20h6" stroke="#7c5cff" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <h4>شاشة OLED فائقة السطوع</h4>
-        <p>ألوان حقيقية وتباين عالي في أي إضاءة، جوه أو برة.</p>
+
+    <div class="teardown-card reveal">
+      <div class="teardown-row">
+
+        <div class="td-item">
+          <span class="td-label">الغطاء الخلفي<small>(زجاج)</small></span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <defs>
+              <linearGradient id="tdBack" x1="0" y1="0" x2="120" y2="240" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffc487"/><stop offset="0.4" stop-color="#ff9a4c"/>
+                <stop offset="0.75" stop-color="#e0691f"/><stop offset="1" stop-color="#a84c19"/>
+              </linearGradient>
+            </defs>
+            <rect x="6" y="4" width="108" height="232" rx="26" fill="url(#tdBack)"/>
+            <rect x="6" y="4" width="108" height="232" rx="26" fill="url(#tdBack)" opacity="0.001"/>
+            <path d="M14 20 L36 6" stroke="rgba(255,255,255,0.55)" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+            <path d="M60 130 L48 122 L52 138 L60 148 L68 138 L72 122 L60 130Z" fill="#fff" opacity="0.35"/>
+          </svg>
+        </div>
+
+        <div class="td-item">
+          <span class="td-label">وحدة الكاميرات</span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <defs>
+              <linearGradient id="tdCam" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffb066"/><stop offset="1" stop-color="#c05f22"/>
+              </linearGradient>
+            </defs>
+            <rect x="22" y="86" width="76" height="70" rx="20" fill="url(#tdCam)"/>
+            <circle cx="46" cy="108" r="14" fill="#111"/><circle cx="46" cy="108" r="14" fill="none" stroke="#000" stroke-width="2"/>
+            <circle cx="74" cy="108" r="14" fill="#111"/>
+            <circle cx="60" cy="136" r="14" fill="#111"/>
+            <circle cx="46" cy="103" r="4" fill="#fff" opacity="0.4"/>
+            <circle cx="74" cy="103" r="4" fill="#fff" opacity="0.4"/>
+            <circle cx="60" cy="131" r="4" fill="#fff" opacity="0.4"/>
+            <circle cx="88" cy="94" r="4" fill="#fff"/>
+            <circle cx="90" cy="146" r="3" fill="#222"/>
+          </svg>
+        </div>
+
+        <div class="td-item">
+          <span class="td-label">إطار التيتانيوم</span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <defs>
+              <linearGradient id="tdFrame" x1="0" y1="0" x2="120" y2="240" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffcd9c"/><stop offset="0.5" stop-color="#ff9a4c"/><stop offset="1" stop-color="#9c4d1a"/>
+              </linearGradient>
+            </defs>
+            <rect x="10" y="6" width="100" height="228" rx="24" fill="none" stroke="url(#tdFrame)" stroke-width="7"/>
+            <rect x="24" y="26" width="72" height="188" rx="8" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+            <rect x="5" y="60" width="4" height="20" rx="2" fill="url(#tdFrame)"/>
+            <rect x="5" y="88" width="4" height="30" rx="2" fill="url(#tdFrame)"/>
+            <rect x="111" y="66" width="4" height="26" rx="2" fill="url(#tdFrame)"/>
+          </svg>
+        </div>
+
+        <div class="td-item">
+          <span class="td-label">لوحة المنطق<small>(شريحة A19 برو)</small></span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <rect x="14" y="4" width="92" height="232" rx="10" fill="#12271d"/>
+            <rect x="26" y="90" width="68" height="48" rx="6" fill="#0a0a0d"/>
+            <text x="60" y="112" text-anchor="middle" fill="#e9e9ee" font-family="Cairo, Arial" font-size="12" font-weight="800">NOVA</text>
+            <text x="60" y="128" text-anchor="middle" fill="#a9a9b2" font-family="Cairo, Arial" font-size="10">A19</text>
+            <g fill="#d9b45c">
+              <rect x="24" y="24" width="14" height="10" rx="2"/><rect x="44" y="24" width="20" height="10" rx="2"/>
+              <rect x="70" y="24" width="16" height="10" rx="2"/><rect x="24" y="150" width="18" height="10" rx="2"/>
+              <rect x="48" y="150" width="14" height="10" rx="2"/><rect x="68" y="150" width="20" height="10" rx="2"/>
+              <rect x="24" y="176" width="24" height="16" rx="2"/><rect x="56" y="176" width="30" height="16" rx="2"/>
+              <rect x="24" y="200" width="60" height="10" rx="2"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="td-item">
+          <span class="td-label">البطارية</span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <defs>
+              <linearGradient id="tdBat" x1="0" y1="0" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#2a2a30"/><stop offset="1" stop-color="#0b0b0d"/>
+              </linearGradient>
+            </defs>
+            <rect x="26" y="14" width="68" height="212" rx="10" fill="url(#tdBat)"/>
+            <rect x="42" y="4" width="36" height="12" rx="4" fill="#1a1a1d"/>
+            <text x="60" y="112" text-anchor="middle" fill="#f2f2f4" font-family="Cairo, Arial" font-weight="800" font-size="13">NOVA</text>
+            <text x="60" y="128" text-anchor="middle" fill="#9a9aa0" font-family="Tajawal, Arial" font-size="10">5200mAh</text>
+          </svg>
+        </div>
+
+        <div class="td-item">
+          <span class="td-label">نظام تبريد<small>(غرفة بخار)</small></span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <defs>
+              <linearGradient id="tdCool" x1="0" y1="0" x2="120" y2="240" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffcd9c"/><stop offset="1" stop-color="#b4622a"/>
+              </linearGradient>
+            </defs>
+            <path d="M50 10 L86 10 L86 60 L58 60 L58 120 L90 120 L90 180 L60 180 L60 224 L44 224 L44 176 L74 176 L74 138 L42 138 L42 78 L70 78 L70 26 L50 26 Z" fill="url(#tdCool)" opacity="0.92"/>
+          </svg>
+        </div>
+
+        <div class="td-item">
+          <span class="td-label">الشاشة<small>(AMOLED)</small></span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <defs>
+              <radialGradient id="tdScreen1" cx="0.3" cy="0.25" r="0.6">
+                <stop offset="0" stop-color="#ffb066"/><stop offset="1" stop-color="#0c0714" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="tdScreen2" cx="0.75" cy="0.7" r="0.55">
+                <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#0c0714" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="10" y="4" width="100" height="232" rx="24" fill="#0a0710"/>
+            <rect x="10" y="4" width="100" height="232" rx="24" fill="url(#tdScreen1)"/>
+            <rect x="10" y="4" width="100" height="232" rx="24" fill="url(#tdScreen2)"/>
+            <rect x="10" y="4" width="100" height="232" rx="24" fill="none" stroke="#ff9a4c" stroke-width="1.5" opacity="0.7"/>
+          </svg>
+        </div>
+
+        <div class="td-item">
+          <span class="td-label">الطبقة الأمامية<small>(Ceramic Shield)</small></span>
+          <span class="td-line"></span>
+          <svg class="td-visual" viewBox="0 0 120 240" fill="none">
+            <rect x="12" y="4" width="96" height="232" rx="24" fill="#fafafc" opacity="0.55" stroke="#d7d7dc" stroke-width="1.5"/>
+            <path d="M22 20 L46 4" stroke="rgba(255,255,255,0.9)" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
+            <circle cx="44" cy="18" r="3" fill="#c8c8ce"/>
+          </svg>
+        </div>
+
       </div>
-      <div class="comp-card reveal">
-        <div class="comp-num">02 — الشريحة</div>
-        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="6" y="6" width="12" height="12" rx="2" stroke="#ff7a45" stroke-width="1.6"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="#ff7a45" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <h4>شريحة A19 نوفا</h4>
-        <p>قلب الجهاز، بتدير كل حاجة من الكاميرا لحد الألعاب الثقيلة.</p>
+
+      <div class="td-legend">
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="12" height="18" rx="3" stroke="#ff7a45" stroke-width="1.7"/></svg>
+          <div><b>الغطاء الخلفي</b><span>زجاج ملون مقاوم للخدش</span></div>
+        </div>
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="#ff7a45" stroke-width="1.7"/><circle cx="12" cy="12" r="2.4" fill="#ff7a45"/></svg>
+          <div><b>وحدة الكاميرات</b><span>كاميرات احترافية بدقة عالية</span></div>
+        </div>
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="4" stroke="#ff7a45" stroke-width="1.7"/></svg>
+          <div><b>إطار التيتانيوم</b><span>خفيف الوزن ومتين</span></div>
+        </div>
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="6" y="6" width="12" height="12" rx="2" stroke="#ff7a45" stroke-width="1.7"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="#ff7a45" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <div><b>شريحة A19 برو</b><span>أداء فائق وكفاءة عالية</span></div>
+        </div>
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="3" stroke="#ff7a45" stroke-width="1.7"/><rect x="10" y="1" width="4" height="2" rx="1" fill="#ff7a45"/></svg>
+          <div><b>البطارية</b><span>عمر بطارية أطول</span></div>
+        </div>
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 4v16M12 4v16M18 4v16" stroke="#ff7a45" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <div><b>نظام تبريد</b><span>تبريد فعال للحفاظ على الأداء</span></div>
+        </div>
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="3" stroke="#ff7a45" stroke-width="1.7"/><path d="M9 20h6" stroke="#ff7a45" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <div><b>شاشة AMOLED</b><span>ألوان زاهية وتباين عالي</span></div>
+        </div>
+        <div class="td-legend-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" stroke="#ff7a45" stroke-width="1.7"/></svg>
+          <div><b>Ceramic Shield</b><span>حماية متقدمة ضد الصدمات والخدوش</span></div>
+        </div>
       </div>
-      <div class="comp-card reveal">
-        <div class="comp-num">03 — البطارية</div>
-        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="15" height="10" rx="2" stroke="#a9e8c9" stroke-width="1.6"/><rect x="19" y="10" width="2" height="4" fill="#a9e8c9"/></svg></div>
-        <h4>بطارية عالية الكثافة</h4>
-        <p>مساحة اتصمّمت بدقة عشان تدّيك أطول عمر ممكن من غير ما الجهاز يتقل.</p>
-      </div>
-      <div class="comp-card reveal">
-        <div class="comp-num">04 — الكاميرا</div>
-        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6" stroke="#ffd27a" stroke-width="1.6"/><circle cx="12" cy="12" r="2" fill="#ffd27a"/></svg></div>
-        <h4>وحدة الكاميرا الثلاثية</h4>
-        <p>ثلاث عدسات بتتعاون مع بعض عشان صورة وحدة متكاملة.</p>
-      </div>
-      <div class="comp-card reveal">
-        <div class="comp-num">05 — الهيكل</div>
-        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="4" stroke="#b9bdc7" stroke-width="1.6"/></svg></div>
-        <h4>هيكل تيتانيوم</h4>
-        <p>خفيف ومتين في نفس الوقت، بيحمي كل قطعة جواه.</p>
-      </div>
+
+      <p class="td-footnote">* قد تختلف المكونات الداخلية حسب الموديل أو الإصدار — رسم توضيحي أصلي من نوفا.</p>
     </div>
   </div>
 </section>
@@ -579,14 +766,13 @@ footer{padding:70px 0 40px; position:relative; z-index:1;}
       <div class="product-card tilt">
         <span class="product-badge">الأكثر مبيعاً</span>
         <div class="product-visual">
-          <div class="phone-real">
-            <div class="phone-screen">
-              <div class="notch"></div>
-              <div class="clock">9:41</div>
-              <div class="rings"></div>
-              <div class="dock"><i></i><i></i><i></i><i></i></div>
+          <div class="phone-back c-copper">
+            <div class="frame-edge"></div>
+            <div class="cam-bump">
+              <div class="lens l1"></div><div class="lens l2"></div><div class="lens l3"></div>
+              <div class="flash"></div><div class="mic"></div>
             </div>
-            <div class="phone-cam-bump"></div>
+            <svg class="logo-mark" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#fff"/></svg>
             <div class="phone-shine"></div>
           </div>
         </div>
@@ -600,14 +786,13 @@ footer{padding:70px 0 40px; position:relative; z-index:1;}
       <div class="product-card tilt">
         <span class="product-badge" style="background:var(--violet-soft); color:var(--violet);">جديد</span>
         <div class="product-visual">
-          <div class="phone-real">
-            <div class="phone-screen">
-              <div class="notch"></div>
-              <div class="clock">9:41</div>
-              <div class="rings"></div>
-              <div class="dock"><i></i><i></i><i></i><i></i></div>
+          <div class="phone-back c-violet">
+            <div class="frame-edge"></div>
+            <div class="cam-bump">
+              <div class="lens l1"></div><div class="lens l2"></div><div class="lens l3"></div>
+              <div class="flash"></div><div class="mic"></div>
             </div>
-            <div class="phone-cam-bump"></div>
+            <svg class="logo-mark" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#fff"/></svg>
             <div class="phone-shine"></div>
           </div>
         </div>
@@ -621,14 +806,13 @@ footer{padding:70px 0 40px; position:relative; z-index:1;}
       <div class="product-card tilt">
         <span class="product-badge" style="background:rgba(255,255,255,0.08); color:var(--text);">قيمة ممتازة</span>
         <div class="product-visual">
-          <div class="phone-real">
-            <div class="phone-screen">
-              <div class="notch"></div>
-              <div class="clock">9:41</div>
-              <div class="rings"></div>
-              <div class="dock"><i></i><i></i><i></i><i></i></div>
+          <div class="phone-back c-silver">
+            <div class="frame-edge"></div>
+            <div class="cam-bump">
+              <div class="lens l1"></div><div class="lens l2"></div><div class="lens l3"></div>
+              <div class="flash"></div><div class="mic"></div>
             </div>
-            <div class="phone-cam-bump"></div>
+            <svg class="logo-mark" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#0a0a0d"/></svg>
             <div class="phone-shine"></div>
           </div>
         </div>
