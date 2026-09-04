@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA — هاتفك من جوه لبرّه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050508;
+  --bg-soft:#0b0b11;
+  --surface:#111118;
+  --surface-2:#171720;
+  --line:rgba(255,255,255,0.08);
+  --silver:#b9bdc7;
+  --violet:#7c5cff;
+  --violet-soft:rgba(124,92,255,0.15);
+  --copper:#ff7a45;
+  --copper-soft:rgba(255,122,69,0.15);
+  --text:#f4f4f7;
+  --muted:#93939f;
+  --radius:22px;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Tajawal',sans-serif;
+  overflow-x:hidden;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(124,92,255,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 10% 15%, rgba(255,122,69,0.11), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(124,92,255,0.08), transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+/* subtle film-grain so the darks feel cinematic instead of flat */
+body::after{
+  content:'';
+  position:fixed; inset:0;
+  z-index:0; pointer-events:none;
+  opacity:0.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,h2,h3,.display{font-family:'Cairo',sans-serif;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+img,canvas{display:block;}
+
+/* ---------- Nav ---------- */
+header.nav{
+  position:fixed; top:0; right:0; left:0; z-index:100;
+  backdrop-filter:blur(16px) saturate(160%);
+  background:rgba(5,5,8,0.55);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1240px;margin:0 auto;padding:18px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-family:'Cairo',sans-serif; font-weight:900; font-size:22px; letter-spacing:1px;
+  display:flex;align-items:center;gap:8px;
+}
+.logo span{
+  width:10px;height:10px;border-radius:50%;
+  background:linear-gradient(135deg,var(--violet),var(--copper));
+  display:inline-block; box-shadow:0 0 16px var(--violet);
+}
+.nav-links{display:flex;gap:36px;font-size:15px;color:var(--muted);}
+.nav-links a{transition:color .25s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{
+  padding:11px 24px;border-radius:100px;
+  background:var(--text); color:#0a0a0d; font-weight:700; font-size:14px;
+  transition:transform .25s, box-shadow .25s;
+}
+.nav-cta:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,255,255,0.15);}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative; z-index:1;
+  min-height:100vh; display:flex; align-items:center;
+  padding:140px 0 60px;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1.05fr 1fr; gap:20px; align-items:center;
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:13px; color:var(--violet); font-weight:700;
+  padding:8px 16px; border:1px solid rgba(124,92,255,0.35); border-radius:100px;
+  background:var(--violet-soft); margin-bottom:24px;
+}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet);}
+.hero h1{
+  font-size:clamp(38px,5vw,64px); font-weight:800; line-height:1.15; margin-bottom:22px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(100deg,var(--violet),var(--copper));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero p.lead{
+  font-size:18px; color:var(--muted); max-width:480px; line-height:1.9; margin-bottom:36px;
+}
+.hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:40px;}
+.btn{
+  padding:15px 30px; border-radius:100px; font-weight:700; font-size:15px;
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer; border:none;
+  transition:transform .25s, box-shadow .25s, background .25s;
+  font-family:'Tajawal',sans-serif;
+}
+.btn-primary{background:linear-gradient(100deg,var(--violet),#5b3df0); color:#fff; box-shadow:0 10px 26px rgba(124,92,255,0.28);}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 14px 34px rgba(124,92,255,0.4);}
+.btn-ghost{background:transparent; color:var(--text); border:1px solid var(--line);}
+.btn-ghost:hover{background:var(--surface-2); border-color:rgba(255,255,255,0.2);}
+.hero-stats{display:flex; gap:36px;}
+.stat b{display:block; font-family:'Cairo',sans-serif; font-size:26px; font-weight:800;}
+.stat span{font-size:13px; color:var(--muted);}
+
+/* 3D stage */
+.stage{
+  position:relative; height:580px;
+  display:flex; align-items:center; justify-content:center;
+}
+.stage-canvas-holder{
+  position:relative; width:100%; height:100%;
+  cursor:grab;
+}
+.stage-canvas-holder:active{cursor:grabbing;}
+.stage canvas{width:100% !important; height:100% !important;}
+.stage-glow{
+  position:absolute; inset:6%;
+  background:radial-gradient(circle, rgba(124,92,255,0.25), transparent 65%);
+  filter:blur(34px); z-index:-1; border-radius:50%;
+  animation:pulseGlow 6s ease-in-out infinite;
+}
+@keyframes pulseGlow{0%,100%{opacity:0.75; transform:scale(1);}50%{opacity:1; transform:scale(1.06);}}
+.part-label{
+  position:absolute; pointer-events:none;
+  font-size:12.5px; font-weight:700; color:var(--text);
+  background:rgba(17,17,24,0.88); border:1px solid var(--line);
+  padding:6px 12px; border-radius:100px; white-space:nowrap;
+  transform:translate(-50%,-50%); opacity:0; transition:opacity .35s;
+  backdrop-filter:blur(6px);
+}
+.part-label::before{
+  content:''; position:absolute; right:-4px; top:50%; width:6px; height:6px;
+  background:var(--violet); border-radius:50%; transform:translateY(-50%);
+}
+.stage-controls{
+  position:absolute; bottom:6px; right:50%; transform:translateX(50%);
+  display:flex; gap:10px; z-index:5;
+}
+.stage-btn{
+  padding:10px 20px; border-radius:100px; font-size:13px; font-weight:700;
+  background:var(--surface-2); border:1px solid var(--line); color:var(--text);
+  cursor:pointer; display:flex; align-items:center; gap:8px;
+  transition:background .25s, border-color .25s;
+}
+.stage-btn:hover{background:#1c1c28; border-color:rgba(255,255,255,0.2);}
+.stage-hint{
+  position:absolute; top:6px; left:50%; transform:translateX(-50%);
+  font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px;
+}
+
+/* ---------- Section shell ---------- */
+section{position:relative; z-index:1; padding:120px 0;}
+.section-head{max-width:640px; margin:0 auto 64px; text-align:center;}
+.section-head .eyebrow{margin-bottom:18px;}
+.section-head h2{font-size:clamp(30px,4vw,44px); font-weight:800; line-height:1.25; margin-bottom:16px;}
+.section-head p{color:var(--muted); font-size:17px; line-height:1.8;}
+.reveal{opacity:0; transform:translateY(36px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ---------- Feature cards ---------- */
+.features{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+.feature-card{
+  background:linear-gradient(160deg, var(--surface), var(--surface-2));
+  border:1px solid var(--line); border-radius:var(--radius); padding:36px 28px;
+  perspective:900px;
+}
+.feature-icon{
+  width:64px; height:64px; border-radius:18px; margin-bottom:24px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--violet-soft),var(--copper-soft));
+  transform-style:preserve-3d; transition:transform .5s;
+}
+.feature-card:hover .feature-icon{transform:rotateY(180deg) rotateX(10deg);}
+.feature-icon svg{width:30px; height:30px;}
+.feature-card h3{font-size:20px; font-weight:700; margin-bottom:10px;}
+.feature-card p{color:var(--muted); font-size:15px; line-height:1.8;}
+
+/* ---------- Components strip ---------- */
+.components{background:var(--bg-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.comp-scroll{
+  display:flex; gap:22px; overflow-x:auto; padding:10px 4px 26px;
+  scroll-snap-type:x proximity;
+}
+.comp-scroll::-webkit-scrollbar{height:6px;}
+.comp-scroll::-webkit-scrollbar-thumb{background:var(--line); border-radius:10px;}
+.comp-card{
+  min-width:230px; scroll-snap-align:start;
+  background:var(--surface); border:1px solid var(--line); border-radius:18px;
+  padding:26px; transition:transform .35s, border-color .35s;
+}
+.comp-card:hover{transform:translateY(-8px); border-color:rgba(124,92,255,0.4);}
+.comp-num{font-family:'Cairo',sans-serif; font-size:13px; color:var(--violet); font-weight:800; margin-bottom:14px;}
+.comp-shape{
+  width:100%; height:90px; border-radius:14px; margin-bottom:16px;
+  background:linear-gradient(135deg,var(--surface-2),#1b1b26);
+  display:flex; align-items:center; justify-content:center;
+  transform-style:preserve-3d;
+}
+.comp-card h4{font-size:16px; font-weight:700; margin-bottom:8px;}
+.comp-card p{font-size:13.5px; color:var(--muted); line-height:1.7;}
+
+/* ---------- Products ---------- */
+.products-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.product-card{
+  position:relative; border-radius:var(--radius); overflow:hidden;
+  background:linear-gradient(165deg,var(--surface),#0a0a0f);
+  border:1px solid var(--line);
+  padding:30px; transform-style:preserve-3d; transition:transform .12s ease-out, border-color .3s;
+  will-change:transform;
+}
+.product-card:hover{border-color:rgba(124,92,255,0.4);}
+.product-badge{
+  position:absolute; top:22px; left:22px; font-size:11.5px; font-weight:700;
+  padding:6px 13px; border-radius:100px; background:var(--copper-soft); color:var(--copper);
+  z-index:2;
+}
+.product-visual{
+  height:220px; margin:10px 0 22px; border-radius:16px;
+  background:radial-gradient(circle at 50% 28%, rgba(124,92,255,0.28), transparent 65%), var(--surface-2);
+  display:flex; align-items:center; justify-content:center; position:relative;
+  overflow:hidden;
+}
+.product-visual::before{
+  content:''; position:absolute; bottom:14px; left:50%; width:70%; height:16px;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse, rgba(0,0,0,0.55), transparent 70%);
+  filter:blur(2px);
+}
+
+/* realistic phone render, pure CSS/no external assets */
+.phone-real{
+  width:104px; height:216px; border-radius:26px; position:relative;
+  background:linear-gradient(150deg,#eef0f3 0%,#c7cad2 30%,#7d818c 65%,#4c4f58 100%);
+  box-shadow:
+    0 26px 50px rgba(0,0,0,0.55),
+    inset 0 0 0 1.5px rgba(255,255,255,0.35),
+    inset 0 -8px 14px rgba(0,0,0,0.25);
+  transform:rotateY(-20deg) rotateX(7deg);
+  transition:transform .5s ease;
+}
+.product-card:hover .phone-real{transform:rotateY(-4deg) rotateX(2deg) scale(1.06);}
+.phone-screen{
+  position:absolute; inset:5px; border-radius:21px; overflow:hidden;
+  background:linear-gradient(165deg,#241a4d 0%, #140f2b 55%, #05050a 100%);
+}
+.phone-screen .notch{
+  position:absolute; top:8px; left:50%; transform:translateX(-50%);
+  width:34px; height:7px; border-radius:6px; background:#000;
+}
+.phone-screen .clock{
+  position:absolute; top:22px; left:0; right:0; text-align:center;
+  font-family:'Cairo',sans-serif; font-weight:800; font-size:13px; color:#fff;
+}
+.phone-screen .rings{
+  position:absolute; top:44%; left:50%; transform:translate(-50%,-50%);
+  width:46px; height:46px; border-radius:50%;
+  background:conic-gradient(var(--violet), var(--copper), var(--violet));
+  filter:drop-shadow(0 0 10px rgba(124,92,255,0.6));
+}
+.phone-screen .rings::after{
+  content:''; position:absolute; inset:6px; border-radius:50%; background:#140f2b;
+}
+.phone-screen .dock{
+  position:absolute; bottom:10px; left:10px; right:10px;
+  display:flex; justify-content:space-between;
+}
+.phone-screen .dock i{
+  width:10px; height:10px; border-radius:3px; display:block;
+  background:linear-gradient(135deg,var(--violet),var(--copper));
+  opacity:0.9;
+}
+.phone-cam-bump{
+  position:absolute; top:12px; right:11px; width:20px; height:20px; border-radius:7px;
+  background:radial-gradient(circle at 35% 30%, #4a4d57, #0c0c10);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18);
+}
+.phone-shine{
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.35) 48%, transparent 60%);
+  transform:translateX(-140%);
+  transition:transform .9s ease;
+}
+.product-card:hover .phone-shine{transform:translateX(140%);}
+
+.product-card h3{font-size:21px; font-weight:700; margin-bottom:8px;}
+.product-card .desc{color:var(--muted); font-size:14px; margin-bottom:20px; line-height:1.7; min-height:44px;}
+.product-foot{display:flex; align-items:center; justify-content:space-between;}
+.price{font-family:'Cairo',sans-serif; font-weight:800; font-size:19px;}
+.price span{color:var(--muted); font-size:12px; font-weight:500;}
+.buy-btn{
+  width:44px; height:44px; border-radius:50%; background:var(--text); color:#0a0a0d;
+  display:flex; align-items:center; justify-content:center; transition:transform .25s;
+}
+.product-card:hover .buy-btn{transform:scale(1.1) rotate(-45deg);}
+
+/* ---------- Specs table ---------- */
+.specs-wrap{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:10px; overflow-x:auto;
+}
+table.specs{width:100%; border-collapse:collapse; min-width:640px;}
+table.specs th, table.specs td{padding:20px 22px; text-align:center; font-size:14.5px;}
+table.specs th{
+  font-family:'Cairo',sans-serif; font-weight:700; font-size:16px;
+  border-bottom:1px solid var(--line);
+}
+table.specs th:first-child, table.specs td:first-child{text-align:right; color:var(--muted); font-weight:500;}
+table.specs td{border-bottom:1px solid var(--line); color:var(--text);}
+table.specs tr:last-child td{border-bottom:none;}
+table.specs td.hi{color:var(--violet); font-weight:700;}
+
+/* ---------- CTA / footer ---------- */
+.cta-section{
+  position:relative; overflow:hidden;
+  background:linear-gradient(165deg,#14111e,#08080c);
+  border-radius:34px; margin:0 32px; padding:90px 40px; text-align:center;
+}
+.cta-blob{
+  position:absolute; width:420px; height:420px; border-radius:50%;
+  background:radial-gradient(circle, rgba(124,92,255,0.35), transparent 70%);
+  filter:blur(10px); animation:float 10s ease-in-out infinite;
+}
+.cta-blob.b1{top:-160px; right:-120px;}
+.cta-blob.b2{bottom:-180px; left:-100px; background:radial-gradient(circle, rgba(255,122,69,0.3), transparent 70%); animation-delay:2s;}
+@keyframes float{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-30px) scale(1.08);}}
+.cta-section h2{font-size:clamp(28px,4vw,42px); font-weight:800; margin-bottom:18px; position:relative;}
+.cta-section p{color:var(--muted); font-size:16px; margin-bottom:34px; position:relative;}
+.newsletter{
+  display:flex; gap:10px; max-width:440px; margin:0 auto; position:relative;
+}
+.newsletter input{
+  flex:1; padding:15px 20px; border-radius:100px; border:1px solid var(--line);
+  background:var(--surface-2); color:var(--text); font-family:'Tajawal',sans-serif; font-size:14px;
+}
+.newsletter input:focus{outline:2px solid var(--violet); outline-offset:2px;}
+
+footer{padding:70px 0 40px; position:relative; z-index:1;}
+.foot-grid{display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:40px; margin-bottom:50px;}
+.foot-grid h4{font-size:14px; margin-bottom:18px; color:var(--muted); font-weight:700;}
+.foot-grid ul{list-style:none;}
+.foot-grid li{margin-bottom:12px; font-size:14.5px;}
+.foot-grid li a:hover{color:var(--violet);}
+.foot-bottom{
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:30px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; flex-wrap:wrap; gap:14px;
+}
+
+@media(max-width:900px){
+  .nav-links{display:none;}
+  .hero-grid{grid-template-columns:1fr;}
+  .stage{height:420px; order:-1;}
+  .features{grid-template-columns:1fr;}
+  .products-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  table.specs{min-width:560px;}
+}
+
+/* ACCOUNT MENU */
+.account-menu{position:fixed; top:20px; right:20px; z-index:1000;}
+.account-btn{display:flex; align-items:center; gap:8px; padding:8px 13px; border:none; border-radius:12px; background:#1e293b; color:#fff; cursor:pointer;}
+.account-btn img{width:35px; height:35px; border-radius:50%; object-fit:cover;}
+.account-dropdown{display:none; position:absolute; right:0; top:55px; width:260px; padding:15px; background:#1e293b; border-radius:15px; box-shadow:0 15px 40px rgba(0,0,0,.35);}
+.account-dropdown.show{display:block;}
+.account-header{display:flex; align-items:center; gap:12px; padding-bottom:15px; margin-bottom:10px; border-bottom:1px solid #334155;}
+.account-header img{width:50px; height:50px; border-radius:50%; object-fit:cover;}
+.account-header strong,.account-header small{display:block;}
+.account-header small{color:#94a3b8; margin-top:4px;}
+.account-dropdown > button{width:100%; padding:11px; margin-top:6px; border:none; border-radius:8px; background:#334155; color:#fff; text-align:left; cursor:pointer;}
+.account-dropdown > button:hover{background:#475569;}
+.account-dropdown .menu-logout{background:#ef4444;}
+.account-dropdown .menu-logout:hover{background:#dc2626;}
+.profile-modal{display:none; position:fixed; inset:0; z-index:2000; justify-content:center; align-items:center; background:rgba(0,0,0,.65); padding:20px;}
+.profile-modal.show{display:flex;}
+.profile-box{position:relative; width:360px; padding:30px; background:#1e293b; color:#fff; border-radius:20px; text-align:center;}
+.close-profile{position:absolute; top:12px; right:12px; border:none; background:transparent; color:#fff; font-size:20px; cursor:pointer;}
+.big-profile{width:110px; height:110px; object-fit:cover; border-radius:50%; border:4px solid #3b82f6; margin-bottom:15px;}
+.profile-box .upload-btn{display:block; width:max-content; margin:auto; padding:9px 14px; background:#3b82f6; color:#fff; border-radius:8px; cursor:pointer;}
+.profile-box .remove-photo{display:block; margin:10px auto 20px; background:transparent; border:none; color:#ef4444; cursor:pointer;}
+.profile-box p{color:#94a3b8; margin:6px;}
+.profile-box .edit-btn{width:100%; margin-top:15px; padding:12px; border:none; border-radius:9px; background:#6366f1; color:#fff; cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="account-menu">
+  <button id="accountBtn" class="account-btn">
+    <img id="navProfileImage" src="" alt="Profile">
+    <span id="navUsername">Account</span>
+    <span>⌄</span>
+  </button>
+  <div id="accountDropdown" class="account-dropdown">
+    <div class="account-header">
+      <img id="menuProfileImage" src="" alt="Profile">
+      <div>
+        <strong id="menuName">User</strong>
+        <small id="menuEmail">email</small>
+      </div>
+    </div>
+    <button id="profileBtn">👤 My Profile</button>
+    <button id="switchAccountBtn">🔄 Switch Account</button>
+    <button id="logoutBtn" class="menu-logout">🚪 Logout</button>
+  </div>
+</div>
+
+<div id="profileModal" class="profile-modal">
+  <div class="profile-box">
+    <button id="closeProfile" class="close-profile">✕</button>
+    <img id="profileImage" class="big-profile" src="" alt="Profile">
+    <label for="profileUpload" class="upload-btn">📷 Change Photo</label>
+    <input type="file" id="profileUpload" accept="image/*" hidden>
+    <button id="removePhotoBtn" class="remove-photo">🗑️ Remove Photo</button>
+    <h2 id="profileName">User</h2>
+    <p id="profileEmail">Email</p>
+    <p id="profileUsername">@username</p>
+    <button id="editAccountBtn" class="edit-btn">✏️ Edit Account</button>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo"><span></span>NOVA</div>
+    <nav class="nav-links">
+      <a href="#hero">الرئيسية</a>
+      <a href="#components">المكوّنات</a>
+      <a href="#products">المنتجات</a>
+      <a href="#specs">المواصفات</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+    <a href="#products" class="nav-cta">اطلب الآن</a>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">إصدار 2026 — نوفا X1 برو</div>
+      <h1>هاتفك <em>من جوّه</em><br>لبرّه</h1>
+      <p class="lead">مش بس تشوف الشكل من بره. احنا بنفكّ الهاتف قدامك، قطعة قطعة، عشان تتفرج على كل حاجة جواه بتقنية 3D حية وواقعية.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">
+          استكشف نوفا X1
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#specs" class="btn btn-ghost">شوف المواصفات</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>48MP</b><span>نظام تصوير ثلاثي</span></div>
+        <div class="stat"><b>29 ساعة</b><span>عمر بطارية</span></div>
+        <div class="stat"><b>A19 نوفا</b><span>شريحة معالجة</span></div>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="stage-glow"></div>
+      <div class="stage-canvas-holder" id="stageHolder">
+        <div class="stage-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 3v18M15 3v18M4 9l-3 3 3 3M20 9l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          اسحب عشان تلف الموديل
+        </div>
+        <div id="labelsLayer"></div>
+      </div>
+      <div class="stage-controls">
+        <button class="stage-btn" id="assembleBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2v6M12 16v6M2 12h6M16 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          تجميع
+        </button>
+        <button class="stage-btn" id="explodeBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4l6 6M20 4l-6 6M4 20l6-6M20 20l-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          فكّ التركيب
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="feature-strip">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="margin:0 auto 18px; width:fit-content;">ليه نوفا X1</div>
+      <h2>تفاصيل بتتحس، مش بس بتتشاف</h2>
+      <p>كل قطعة في نوفا X1 اتصممت عشان تشتغل مع بعض بسلاسة، من الشريحة لحد آخر بكسل في الشاشة.</p>
+    </div>
+    <div class="features">
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="6" width="12" height="12" rx="2" stroke="#c9bfff" stroke-width="1.8"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" stroke="#c9bfff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>معالج نوفا A19</h3>
+        <p>سرعة معالجة بتخليك متحس بأي تأخير، حتى في أعقد الألعاب والتطبيقات.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#ffb08c" stroke-width="1.8"/><rect x="3" y="7" width="18" height="12" rx="3" stroke="#ffb08c" stroke-width="1.8"/><circle cx="17" cy="10" r="1" fill="#ffb08c"/></svg></div>
+        <h3>كاميرا ثلاثية 48MP</h3>
+        <p>عدسات بتلتقط التفاصيل زي ما عينك بتشوفها بالظبط، ليل أو نهار.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="3" stroke="#a9e8c9" stroke-width="1.8"/><rect x="10" y="1" width="4" height="2" rx="1" fill="#a9e8c9"/><path d="M9 15l2-4 2 2 2-4" stroke="#a9e8c9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>بطارية يوم كامل</h3>
+        <p>29 ساعة استخدام متواصل من غير ما تفكر في الشاحن ولا مرة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="components" id="components">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="margin:0 auto 18px; width:fit-content;">فكّ التركيب</div>
+      <h2>اتفرج على كل قطعة لوحدها</h2>
+      <p>لفّ الموديل فوق واضغط "فكّ التركيب" عشان تشوف كل عنصر بيعمل إيه بالظبط.</p>
+    </div>
+    <div class="comp-scroll">
+      <div class="comp-card reveal">
+        <div class="comp-num">01 — الشاشة</div>
+        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="3" stroke="#7c5cff" stroke-width="1.6"/><path d="M9 20h6" stroke="#7c5cff" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h4>شاشة OLED فائقة السطوع</h4>
+        <p>ألوان حقيقية وتباين عالي في أي إضاءة، جوه أو برة.</p>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-num">02 — الشريحة</div>
+        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="6" y="6" width="12" height="12" rx="2" stroke="#ff7a45" stroke-width="1.6"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="#ff7a45" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h4>شريحة A19 نوفا</h4>
+        <p>قلب الجهاز، بتدير كل حاجة من الكاميرا لحد الألعاب الثقيلة.</p>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-num">03 — البطارية</div>
+        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="15" height="10" rx="2" stroke="#a9e8c9" stroke-width="1.6"/><rect x="19" y="10" width="2" height="4" fill="#a9e8c9"/></svg></div>
+        <h4>بطارية عالية الكثافة</h4>
+        <p>مساحة اتصمّمت بدقة عشان تدّيك أطول عمر ممكن من غير ما الجهاز يتقل.</p>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-num">04 — الكاميرا</div>
+        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6" stroke="#ffd27a" stroke-width="1.6"/><circle cx="12" cy="12" r="2" fill="#ffd27a"/></svg></div>
+        <h4>وحدة الكاميرا الثلاثية</h4>
+        <p>ثلاث عدسات بتتعاون مع بعض عشان صورة وحدة متكاملة.</p>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-num">05 — الهيكل</div>
+        <div class="comp-shape"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="4" stroke="#b9bdc7" stroke-width="1.6"/></svg></div>
+        <h4>هيكل تيتانيوم</h4>
+        <p>خفيف ومتين في نفس الوقت، بيحمي كل قطعة جواه.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="margin:0 auto 18px; width:fit-content;">تشكيلة نوفا</div>
+      <h2>اختار الموديل اللي يناسبك</h2>
+      <p>ثلاث فئات مختلفة، كل واحدة فيها نفس الجودة بمواصفات مختلفة.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card tilt">
+        <span class="product-badge">الأكثر مبيعاً</span>
+        <div class="product-visual">
+          <div class="phone-real">
+            <div class="phone-screen">
+              <div class="notch"></div>
+              <div class="clock">9:41</div>
+              <div class="rings"></div>
+              <div class="dock"><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="phone-cam-bump"></div>
+            <div class="phone-shine"></div>
+          </div>
+        </div>
+        <h3>نوفا X1 برو</h3>
+        <p class="desc">أقوى معالج، أكبر بطارية، وشاشة بأعلى دقة في التشكيلة.</p>
+        <div class="product-foot">
+          <div class="price">44,999 <span>ج.م</span></div>
+          <div class="buy-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="product-card tilt">
+        <span class="product-badge" style="background:var(--violet-soft); color:var(--violet);">جديد</span>
+        <div class="product-visual">
+          <div class="phone-real">
+            <div class="phone-screen">
+              <div class="notch"></div>
+              <div class="clock">9:41</div>
+              <div class="rings"></div>
+              <div class="dock"><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="phone-cam-bump"></div>
+            <div class="phone-shine"></div>
+          </div>
+        </div>
+        <h3>نوفا إيدج</h3>
+        <p class="desc">تصميم أنحف، حواف مقوّسة، وأداء أكتر من كفاية ليومك.</p>
+        <div class="product-foot">
+          <div class="price">32,999 <span>ج.م</span></div>
+          <div class="buy-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="product-card tilt">
+        <span class="product-badge" style="background:rgba(255,255,255,0.08); color:var(--text);">قيمة ممتازة</span>
+        <div class="product-visual">
+          <div class="phone-real">
+            <div class="phone-screen">
+              <div class="notch"></div>
+              <div class="clock">9:41</div>
+              <div class="rings"></div>
+              <div class="dock"><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="phone-cam-bump"></div>
+            <div class="phone-shine"></div>
+          </div>
+        </div>
+        <h3>نوفا لايت</h3>
+        <p class="desc">كل الأساسيات اللي محتاجها بسعر يناسب الكل.</p>
+        <div class="product-foot">
+          <div class="price">21,499 <span>ج.م</span></div>
+          <div class="buy-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="margin:0 auto 18px; width:fit-content;">مقارنة</div>
+      <h2>المواصفات جنب بعض</h2>
+      <p>عشان تقدر تقارن وتختار الموديل الصح ليك.</p>
+    </div>
+    <div class="specs-wrap reveal">
+      <table class="specs">
+        <thead>
+          <tr><th></th><th>نوفا X1 برو</th><th>نوفا إيدج</th><th>نوفا لايت</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>الشاشة</td><td class="hi">6.7" OLED 120Hz</td><td>6.5" OLED 90Hz</td><td>6.1" LCD 60Hz</td></tr>
+          <tr><td>المعالج</td><td class="hi">A19 نوفا برو</td><td>A19 نوفا</td><td>A18 نوفا</td></tr>
+          <tr><td>الكاميرا</td><td class="hi">48MP × 3 عدسات</td><td>48MP × 2 عدسة</td><td>24MP × 2 عدسة</td></tr>
+          <tr><td>البطارية</td><td class="hi">29 ساعة</td><td>24 ساعة</td><td>20 ساعة</td></tr>
+          <tr><td>التخزين</td><td class="hi">حتى 1TB</td><td>حتى 512GB</td><td>حتى 256GB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cta-section reveal">
+    <div class="cta-blob b1"></div>
+    <div class="cta-blob b2"></div>
+    <h2>كن أول من يعرف بالجديد</h2>
+    <p>اشترك في نشرتنا وهيوصلك كل حاجة جديدة عن نوفا أول بأول.</p>
+    <form class="newsletter" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').textContent='تم الاشتراك ✓';">
+      <input type="email" placeholder="بريدك الإلكتروني" required>
+      <button type="submit" class="btn btn-primary" style="padding:15px 26px;">اشترك</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px;"><span></span>NOVA</div>
+        <p style="color:var(--muted); font-size:14px; line-height:1.8; max-width:280px;">بنصمم هواتف بنفتخر بيها من جوه لبره، بتفاصيل حقيقية مش مجرد شكل.</p>
+      </div>
+      <div>
+        <h4>المنتجات</h4>
+        <ul><li><a href="#products">نوفا X1 برو</a></li><li><a href="#products">نوفا إيدج</a></li><li><a href="#products">نوفا لايت</a></li></ul>
+      </div>
+      <div>
+        <h4>الشركة</h4>
+        <ul><li><a href="#">مين احنا</a></li><li><a href="#">وظائف</a></li><li><a href="#">تواصل معنا</a></li></ul>
+      </div>
+      <div>
+        <h4>الدعم</h4>
+        <ul><li><a href="#">الضمان</a></li><li><a href="#">مراكز الصيانة</a></li><li><a href="#">الأسئلة الشائعة</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 نوفا. جميع الحقوق محفوظة.</span>
+      <span>صُنع بشغف — تجربة نوفا الرقمية</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---------------- Reveal on scroll ---------------- */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+/* ---------------- Product card tilt ---------------- */
+document.querySelectorAll('.tilt').forEach(card=>{
+  card.addEventListener('mousemove', (e)=>{
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width - 0.5;
+    const y = (e.clientY - r.top)/r.height - 0.5;
+    card.style.transform = `perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', ()=>{ card.style.transform = 'perspective(900px) rotateY(0) rotateX(0)'; });
+});
+
+/* ---------------- 3D Exploding Phone (photoreal materials, procedural textures) ---------------- */
+(function(){
+  const holder = document.getElementById('stageHolder');
+  const labelsLayer = document.getElementById('labelsLayer');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, holder.clientWidth/holder.clientHeight, 0.1, 100);
+  camera.position.set(0, 0.15, 9);
+
+  const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(holder.clientWidth, holder.clientHeight);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.physicallyCorrectLights = true;
+  holder.appendChild(renderer.domElement);
+
+  /* ---- procedural "studio" environment map, used for realistic reflections
+         (no external photos: generated on a canvas so materials still read
+         as glass/metal/glossy plastic without any licensing concerns) ---- */
+  function makeEnvTexture(){
+    const c = document.createElement('canvas'); c.width = 512; c.height = 256;
+    const ctx = c.getContext('2d');
+    const g = ctx.createLinearGradient(0,0,0,256);
+    g.addColorStop(0,'#e7e9ff');
+    g.addColorStop(0.35,'#6a57d6');
+    g.addColorStop(0.7,'#171326');
+    g.addColorStop(1,'#030305');
+    ctx.fillStyle = g; ctx.fillRect(0,0,512,256);
+    const rg = ctx.createRadialGradient(370,55,4,370,55,150);
+    rg.addColorStop(0,'rgba(255,255,255,0.95)');
+    rg.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle = rg; ctx.fillRect(0,0,512,256);
+    const rg2 = ctx.createRadialGradient(120,180,4,120,180,120);
+    rg2.addColorStop(0,'rgba(255,150,90,0.55)');
+    rg2.addColorStop(1,'rgba(255,150,90,0)');
+    ctx.fillStyle = rg2; ctx.fillRect(0,0,512,256);
+    const tex = new THREE.CanvasTexture(c);
+    tex.mapping = THREE.EquirectangularReflectionMapping;
+    tex.encoding = THREE.sRGBEncoding;
+    return tex;
+  }
+  const envTex = makeEnvTexture();
+  scene.environment = envTex;
+
+  // Lights (kept, layered on top of the env map for extra sparkle)
+  scene.add(new THREE.AmbientLight(0x8888aa, 0.35));
+  const key = new THREE.DirectionalLight(0xffffff, 1.3);
+  key.position.set(4, 6, 6);
+  scene.add(key);
+  const violetLight = new THREE.PointLight(0x7c5cff, 2.4, 20);
+  violetLight.position.set(-4, 2, 3);
+  scene.add(violetLight);
+  const copperLight = new THREE.PointLight(0xff7a45, 1.7, 20);
+  copperLight.position.set(3, -3, 2);
+  scene.add(copperLight);
+  const rim = new THREE.DirectionalLight(0xbfd0ff, 0.6);
+  rim.position.set(-3, -2, -5);
+  scene.add(rim);
+
+  /* ---- procedural texture builders: give each internal part a believable
+         "photographed" surface (screen UI, brushed metal, PCB traces,
+         battery label, lens glass) without pulling any real copyrighted photo ---- */
+  function canvasTex(draw, w, h){
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    draw(c.getContext('2d'), w, h);
+    const t = new THREE.CanvasTexture(c);
+    t.encoding = THREE.sRGBEncoding;
+    return t;
+  }
+
+  const screenTex = canvasTex((ctx,w,h)=>{
+    const g = ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,'#2c2064'); g.addColorStop(0.55,'#150f30'); g.addColorStop(1,'#05050b');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    ctx.font = '700 64px Cairo, Arial'; ctx.textAlign = 'center';
+    ctx.fillText('9:41', w/2, 130);
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(w/2, h*0.46, 90, 0, Math.PI*2); ctx.stroke();
+    const rg = ctx.createLinearGradient(w/2-90,0,w/2+90,0);
+    rg.addColorStop(0,'#7c5cff'); rg.addColorStop(1,'#ff7a45');
+    ctx.strokeStyle = rg; ctx.lineWidth = 8;
+    ctx.beginPath(); ctx.arc(w/2, h*0.46, 90, -Math.PI/2, Math.PI*0.9); ctx.stroke();
+    for(let i=0;i<4;i++){
+      const x = w*0.18 + i*(w*0.64/3);
+      const grad = ctx.createLinearGradient(x,h-150,x,h-90);
+      grad.addColorStop(0,'#7c5cff'); grad.addColorStop(1,'#ff7a45');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.roundRect ? ctx.roundRect(x,h-150,60,60,16) : ctx.rect(x,h-150,60,60);
+      ctx.fill();
+    }
+  }, 512, 1024);
+
+  const backTex = canvasTex((ctx,w,h)=>{
+    const g = ctx.createLinearGradient(0,0,w,h);
+    g.addColorStop(0,'#e9ebef'); g.addColorStop(0.4,'#c3c7d1'); g.addColorStop(0.7,'#838794'); g.addColorStop(1,'#4c4f59');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+    ctx.globalAlpha = 0.25;
+    for(let i=0;i<w;i+=2){
+      ctx.strokeStyle = i%6===0 ? '#ffffff' : '#000000';
+      ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = 'rgba(20,20,26,0.85)';
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(w*0.62,h*0.06,w*0.3,h*0.18,24) : ctx.rect(w*0.62,h*0.06,w*0.3,h*0.18);
+    ctx.fill();
+  }, 512, 1024);
+
+  const pcbTex = canvasTex((ctx,w,h)=>{
+    ctx.fillStyle = '#0e2018'; ctx.fillRect(0,0,w,h);
+    ctx.strokeStyle = 'rgba(180,255,210,0.55)'; ctx.lineWidth = 2;
+    for(let i=0;i<14;i++){
+      ctx.beginPath();
+      const y = (i+0.5)*(h/14);
+      ctx.moveTo(0,y); ctx.lineTo(w*0.4,y); ctx.lineTo(w*0.55,y-14); ctx.lineTo(w,y-14);
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#d8b34a';
+    for(let i=0;i<6;i++){ ctx.fillRect(w*0.1+i*40, h*0.75, 18, 18); }
+  }, 512, 320);
+
+  const batteryTex = canvasTex((ctx,w,h)=>{
+    const g = ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,'#1f4433'); g.addColorStop(1,'#0d1f17');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.font = '700 30px Cairo, Arial'; ctx.textAlign = 'center';
+    ctx.fillText('NOVA CELL', w/2, h*0.42);
+    ctx.font = '400 20px Tajawal, Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.fillText('5,200 mAh · Li-Po', w/2, h*0.62);
+  }, 512, 380);
+
+  const lensTex = canvasTex((ctx,w,h)=>{
+    const rg = ctx.createRadialGradient(w/2,h/2,4,w/2,h/2,w/2);
+    rg.addColorStop(0,'#dfe6ff'); rg.addColorStop(0.35,'#2a2f55'); rg.addColorStop(0.7,'#08080c'); rg.addColorStop(1,'#000');
+    ctx.fillStyle = rg; ctx.fillRect(0,0,w,h);
+  }, 256, 256);
+
+  const silverMat = new THREE.MeshPhysicalMaterial({ map:backTex, metalness:0.9, roughness:0.32, clearcoat:0.6, clearcoatRoughness:0.25, envMapIntensity:1.1 });
+  const darkMat = new THREE.MeshStandardMaterial({ color:0x14141c, metalness:0.4, roughness:0.55, envMapIntensity:0.6 });
+  const screenMat = new THREE.MeshPhysicalMaterial({ map:screenTex, metalness:0.1, roughness:0.18, clearcoat:1, clearcoatRoughness:0.08, emissiveMap:screenTex, emissive:0xffffff, emissiveIntensity:0.55, envMapIntensity:0.8 });
+  const chipMat = new THREE.MeshPhysicalMaterial({ color:0x2a1f4d, metalness:0.7, roughness:0.28, emissive:0x7c5cff, emissiveIntensity:0.5, clearcoat:0.5, envMapIntensity:1 });
+  const boardMat = new THREE.MeshStandardMaterial({ map:pcbTex, metalness:0.2, roughness:0.6, envMapIntensity:0.5 });
+  const batteryMat = new THREE.MeshStandardMaterial({ map:batteryTex, metalness:0.25, roughness:0.5, envMapIntensity:0.5 });
+  const camMat = new THREE.MeshPhysicalMaterial({ color:0x0a0a0d, metalness:0.85, roughness:0.22, clearcoat:0.7, envMapIntensity:1.2 });
+  const lensMat = new THREE.MeshPhysicalMaterial({ map:lensTex, metalness:0.1, roughness:0.05, clearcoat:1, clearcoatRoughness:0.02, envMapIntensity:1.4 });
+  const frameMat = new THREE.MeshPhysicalMaterial({ color:0xb9bdc7, metalness:0.95, roughness:0.22, clearcoat:0.4, envMapIntensity:1.2 });
+
+  const phoneGroup = new THREE.Group();
+  scene.add(phoneGroup);
+
+  function box(w,h,d,mat){ return new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat); }
+
+  const parts = [];
+
+  const backCover = box(1.7, 3.4, 0.12, silverMat);
+  parts.push({mesh:backCover, a:new THREE.Vector3(0,0,-0.35), e:new THREE.Vector3(-0.3,-0.2,-2.6), label:'الهيكل الخارجي'});
+
+  const battery = box(1.1, 1.9, 0.14, batteryMat);
+  parts.push({mesh:battery, a:new THREE.Vector3(0.05,-0.35,-0.2), e:new THREE.Vector3(-2.0,-0.9,-1.1), label:'البطارية'});
+
+  const chip = box(0.55, 0.55, 0.1, chipMat);
+  parts.push({mesh:chip, a:new THREE.Vector3(-0.35,0.75,-0.15), e:new THREE.Vector3(2.1,1.1,-0.4), label:'شريحة A19 نوفا'});
+
+  const board = box(1.3, 0.9, 0.06, boardMat);
+  parts.push({mesh:board, a:new THREE.Vector3(-0.1,0.7,-0.12), e:new THREE.Vector3(2.0,1.0,-0.45), label:null});
+
+  const frame = box(1.75, 3.45, 0.2, frameMat);
+  parts.push({mesh:frame, a:new THREE.Vector3(0,0,0), e:new THREE.Vector3(0,0,0), label:null});
+
+  const camModule = new THREE.Mesh(new THREE.CylinderGeometry(0.42,0.42,0.16,32), camMat);
+  camModule.rotation.x = Math.PI/2;
+  parts.push({mesh:camModule, a:new THREE.Vector3(-0.55,1.25,-0.28), e:new THREE.Vector3(-2.1,1.3,-0.9), label:'وحدة الكاميرا'});
+
+  const lensGroup = new THREE.Group();
+  const lensPositions = [[-0.15,0.15],[0.15,0.15],[0,-0.16]];
+  lensPositions.forEach(p=>{
+    const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.11,0.11,0.06,24), lensMat);
+    lens.rotation.x = Math.PI/2;
+    lens.position.set(p[0],p[1],0.09);
+    lensGroup.add(lens);
+  });
+  parts.push({mesh:lensGroup, a:new THREE.Vector3(-0.55,1.25,-0.22), e:new THREE.Vector3(-2.1,1.3,-0.75), label:null});
+
+  const screen = box(1.55, 3.25, 0.05, screenMat);
+  parts.push({mesh:screen, a:new THREE.Vector3(0,0,0.14), e:new THREE.Vector3(0.4,0.1,2.6), label:'الشاشة OLED'});
+
+  const speaker = box(0.5, 0.08, 0.05, darkMat);
+  parts.push({mesh:speaker, a:new THREE.Vector3(0,1.55,0.15), e:new THREE.Vector3(0.6,2.4,2.3), label:null});
+
+  parts.forEach(p=>{ p.mesh.position.copy(p.a); phoneGroup.add(p.mesh); });
+
+  // soft contact shadow under the model, grounds it visually
+  const shadowTex = canvasTex((ctx,w,h)=>{
+    const rg = ctx.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2);
+    rg.addColorStop(0,'rgba(0,0,0,0.55)'); rg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = rg; ctx.fillRect(0,0,w,h);
+  }, 256, 256);
+  const shadowPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(4.2,4.2),
+    new THREE.MeshBasicMaterial({ map:shadowTex, transparent:true, depthWrite:false })
+  );
+  shadowPlane.rotation.x = -Math.PI/2;
+  shadowPlane.position.y = -2.0;
+  scene.add(shadowPlane);
+
+  // Labels overlay
+  const labelParts = parts.filter(p=>p.label);
+  const labelEls = labelParts.map(p=>{
+    const el = document.createElement('div');
+    el.className = 'part-label';
+    el.textContent = p.label;
+    labelsLayer.appendChild(el);
+    return el;
+  });
+
+  let explodeFactor = reduceMotion ? 0.55 : 0;
+  let explodeTarget = 0;
+  let autoMode = true;
+  let autoTimer = 0;
+  const AUTO_CYCLE = reduceMotion ? 999999 : 4.4;
+
+  function setTarget(v, manual){
+    explodeTarget = v;
+    if(manual){ autoMode = false; autoTimer = 0; }
+  }
+
+  document.getElementById('explodeBtn').addEventListener('click', ()=> setTarget(1, true));
+  document.getElementById('assembleBtn').addEventListener('click', ()=> setTarget(0, true));
+
+  let dragging = false, lastX = 0, lastY = 0;
+  let rotY = 0.4, rotX = 0.12, velY = 0.0025;
+  holder.addEventListener('mousedown', (e)=>{ dragging = true; lastX = e.clientX; lastY = e.clientY; });
+  window.addEventListener('mouseup', ()=> dragging = false);
+  window.addEventListener('mousemove', (e)=>{
+    if(!dragging) return;
+    const dx = e.clientX - lastX, dy = e.clientY - lastY;
+    rotY += dx * 0.006;
+    rotX += dy * 0.004;
+    rotX = Math.max(-0.6, Math.min(0.6, rotX));
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  holder.addEventListener('touchstart', (e)=>{ dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, {passive:true});
+  holder.addEventListener('touchmove', (e)=>{
+    if(!dragging) return;
+    const dx = e.touches[0].clientX - lastX, dy = e.touches[0].clientY - lastY;
+    rotY += dx * 0.006; rotX += dy * 0.004;
+    rotX = Math.max(-0.6, Math.min(0.6, rotX));
+    lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+  }, {passive:true});
+  holder.addEventListener('touchend', ()=> dragging = false);
+
+  const tmpVec = new THREE.Vector3();
+  const clock = new THREE.Clock();
+
+  function animate(){
+    requestAnimationFrame(animate);
+    const dt = Math.min(clock.getDelta(), 0.05);
+
+    if(autoMode && !reduceMotion){
+      autoTimer += dt;
+      if(autoTimer > AUTO_CYCLE){
+        autoTimer = 0;
+        explodeTarget = explodeTarget > 0.5 ? 0 : 1;
+      }
+    }
+
+    explodeFactor += (explodeTarget - explodeFactor) * dt * 2.2;
+
+    if(!dragging && !reduceMotion) rotY += velY;
+    phoneGroup.rotation.y += (rotY - phoneGroup.rotation.y) * 0.12;
+    phoneGroup.rotation.x += (rotX - phoneGroup.rotation.x) * 0.12;
+
+    parts.forEach(p=>{
+      tmpVec.lerpVectors(p.a, p.e, explodeFactor);
+      p.mesh.position.copy(tmpVec);
+    });
+
+    phoneGroup.position.y = Math.sin(performance.now()*0.0006) * (reduceMotion?0:0.08);
+    shadowPlane.material.opacity = 1 - explodeFactor*0.5;
+
+    renderer.render(scene, camera);
+
+    const rect = holder.getBoundingClientRect();
+    labelParts.forEach((p,i)=>{
+      const el = labelEls[i];
+      const worldPos = new THREE.Vector3();
+      p.mesh.getWorldPosition(worldPos);
+      const projected = worldPos.clone().project(camera);
+      const x = (projected.x * 0.5 + 0.5) * rect.width;
+      const y = (-projected.y * 0.5 + 0.5) * rect.height;
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.opacity = explodeFactor > 0.35 ? Math.min(1,(explodeFactor-0.35)*2.2) : 0;
+    });
+  }
+  animate();
+
+  function onResize(){
+    const w = holder.clientWidth, h = holder.clientHeight;
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w,h);
+  }
+  window.addEventListener('resize', onResize);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+:root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --input: #334155;
+    --text: #ffffff;
+    --muted: #94a3b8;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --error: #ef4444;
+    --success: #22c55e;
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, #1d4ed8 0%, transparent 30%),
+        radial-gradient(circle at bottom right, #7c3aed 0%, transparent 30%),
+        var(--bg);
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--text);
+
+    transition: 0.4s ease;
+}
+
+/* ================= DARK MODE BUTTON ================= */
+
+.dark-btn {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+
+    padding: 10px 16px;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+
+    background: rgba(30,41,59,0.8);
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.dark-btn:hover {
+    transform: translateY(-2px);
+    background: #334155;
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    width: 100%;
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================= FORM ================= */
+
+.form {
+    width: 390px;
+
+    padding: 35px;
+
+    background: rgba(30,41,59,0.88);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.45);
+
+    animation: formAppear 0.6s ease;
+}
+
+@keyframes formAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================= LOGO ================= */
+
+.logo {
+    width: 65px;
+    height: 65px;
+
+    margin: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #3b82f6,
+        #7c3aed
+    );
+
+    font-size: 30px;
+    font-weight: bold;
+
+    box-shadow: 0 10px 30px rgba(59,130,246,0.35);
+}
+
+.form h2 {
+    text-align: center;
+    font-size: 28px;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+/* ================= INPUT ================= */
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.input-box label {
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+.form input {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid transparent;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: var(--input);
+
+    color: white;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+.form input:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(59,130,246,0.15);
+}
+
+.form input::placeholder {
+    color: #94a3b8;
+}
+
+/* ================= PASSWORD ================= */
+
+.password-box {
+    position: relative;
+}
+
+.password-box input {
+    padding-right: 65px;
+}
+
+.show-btn {
+    position: absolute;
+
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    padding: 0 10px;
+
+    background: #475569;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.show-btn:hover {
+    background: #64748b;
+}
+
+/* ================= ERRORS ================= */
+
+small {
+    min-height: 16px;
+    color: var(--error);
+    font-size: 12px;
+}
+
+/* ================= REMEMBER ================= */
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.remember input {
+    width: auto;
+    cursor: pointer;
+}
+
+/* ================= LOGIN BUTTON ================= */
+
+.login-btn {
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #3b82f6,
+        #6366f1
+    );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(59,130,246,0.35);
+}
+
+.login-btn:active {
+    transform: scale(0.98);
+}
+
+/* ================= MESSAGE ================= */
+
+#message {
+    text-align: center;
+    min-height: 20px;
+}
+
+/* ================= CREATE ACCOUNT ================= */
+
+.create {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.form a {
+    color: #60a5fa;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.form a:hover {
+    text-decoration: underline;
+}
+
+/* ================= TOAST ================= */
+
+#toast {
+    position: fixed;
+
+    top: 25px;
+    left: 50%;
+
+    transform: translate(-50%, -100px);
+
+    background: #22c55e;
+
+    color: white;
+
+    padding: 13px 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
+    opacity: 0;
+
+    transition: 0.4s;
+
+    z-index: 999;
+}
+
+#toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard {
+    width: 390px;
+
+    padding: 40px;
+
+    background: rgba(30,41,59,0.9);
+
+    backdrop-filter: blur(15px);
+
+    border-radius: 24px;
+
+    text-align: center;
+
+    color: white;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.45);
+}
+
+.dashboard img {
+    width: 110px;
+    height: 110px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    margin-bottom: 15px;
+
+    border: 4px solid #3b82f6;
+}
+
+.dashboard h1 {
+    margin-bottom: 10px;
+}
+
+.dashboard p {
+    color: #cbd5e1;
+    margin: 7px 0;
+}
+
+#logoutBtn {
+    margin-top: 20px;
+
+    padding: 12px 25px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+#logoutBtn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 500px) {
+
+    .form,
+    .dashboard {
+        width: 100%;
+        padding: 25px;
+    }
+
+    .dark-btn {
+        top: 15px;
+        right: 15px;
+    }
+}
+/* ==========================================
+   LIGHT MODE
+========================================== */
+
+body.light-mode {
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --input: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #bfdbfe 0%,
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #ddd6fe 0%,
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+}
+
+
+/* FORM */
+
+body.light-mode .form {
+    background: rgba(255, 255, 255, 0.9);
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.15);
+}
+
+
+/* FORM TITLE */
+
+body.light-mode .form h2 {
+    color: #0f172a;
+}
+
+
+/* SUBTITLE */
+
+body.light-mode .subtitle {
+    color: #64748b;
+}
+
+
+/* LABEL */
+
+body.light-mode .input-box label {
+    color: #334155;
+}
+
+
+/* INPUT */
+
+body.light-mode .form input {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+
+/* PLACEHOLDER */
+
+body.light-mode .form input::placeholder {
+    color: #64748b;
+}
+
+
+/* SHOW PASSWORD */
+
+body.light-mode .show-btn {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+
+body.light-mode .show-btn:hover {
+    background: #94a3b8;
+}
+
+
+/* REMEMBER ME */
+
+body.light-mode .remember {
+    color: #334155;
+}
+
+
+/* DARK MODE BUTTON */
+
+body.light-mode .dark-btn {
+    background: rgba(255, 255, 255, 0.8);
+    color: #0f172a;
+
+    border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+body.light-mode .dark-btn:hover {
+    background: #ffffff;
+}
+
+
+/* DASHBOARD */
+
+body.light-mode .dashboard {
+    background: rgba(255, 255, 255, 0.9);
+
+    color: #0f172a;
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.15);
+}
+
+
+/* DASHBOARD TEXT */
+
+body.light-mode .dashboard p {
+    color: #475569;
+}
+
+
+/* DASHBOARD CARD */
+
+body.light-mode .dashboard-card {
+    background: #eff6ff;
+}
+
+body.light-mode .dashboard-card h3 {
+    color: #0f172a;
+}
+/* ==========================================
+   PROFILE
+========================================== */
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-container img {
+    width: 120px;
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 4px solid #3b82f6;
+
+    margin-bottom: 12px;
+
+    background: #334155;
+
+    box-shadow:
+        0 10px 30px rgba(59, 130, 246, 0.3);
+
+    transition: 0.3s;
+}
+
+.profile-container img:hover {
+    transform: scale(1.04);
+}
+
+
+/* Upload Button */
+
+.upload-btn {
+    display: inline-block;
+
+    padding: 9px 15px;
+
+    border-radius: 9px;
+
+    background: #3b82f6;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.upload-btn:hover {
+    background: #2563eb;
+
+    transform: translateY(-2px);
+}
+
+
+/* Remove Photo */
+
+.remove-photo {
+    margin-top: 8px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #ef4444;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.remove-photo:hover {
+    text-decoration: underline;
+}
+
+
+/* ==========================================
+   DASHBOARD BUTTONS
+========================================== */
+
+.dashboard-buttons {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* Edit Button */
+
+.edit-btn {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #6366f1;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.edit-btn:hover {
+    background: #4f46e5;
+
+    transform: translateY(-2px);
+}
+
+
+/* Logout */
+
+.dashboard-buttons .logout-btn {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 0;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ef4444;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.dashboard-buttons .logout-btn:hover {
+    background: #dc2626;
+
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================
+   EDIT PANEL
+========================================== */
+
+.edit-panel {
+    display: none;
+
+    margin-top: 25px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid rgba(255,255,255,0.1);
+
+    text-align: left;
+}
+
+.edit-panel.show {
+    display: block;
+
+    animation: editAppear 0.3s ease;
+}
+
+@keyframes editAppear {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+.edit-panel h2 {
+    text-align: center;
+
+    margin-bottom: 5px;
+}
+
+.edit-subtitle {
+    text-align: center;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+    margin-bottom: 20px;
+}
+
+
+/* Edit inputs */
+
+.edit-panel .input-box {
+    margin-bottom: 12px;
+}
+
+.edit-panel .input-box label {
+    display: block;
+
+    margin-bottom: 6px;
+}
+
+
+/* ==========================================
+   EDIT ACTIONS
+========================================== */
+
+.edit-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.save-btn,
+.cancel-btn {
+    flex: 1;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.save-btn {
+    background: #22c55e;
+}
+
+.save-btn:hover {
+    background: #16a34a;
+
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    background: #475569;
+}
+
+.cancel-btn:hover {
+    background: #64748b;
+}
+
+
+/* ==========================================
+   LIGHT MODE
+========================================== */
+
+body.light-mode .edit-panel {
+    border-top-color: rgba(15,23,42,0.1);
+}
+
+body.light-mode .edit-subtitle {
+    color: #64748b;
+}
+
+body.light-mode .profile-container img {
+    background: #e2e8f0;
+}
+
+body.light-mode .cancel-btn {
+    background: #cbd5e1;
+
+    color: #0f172a;
+}
+/* ==========================================
+   WELCOME PAGE
+========================================== */
+
+.welcome-page {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+}
+
+.welcome-card {
+    width: 500px;
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    background: rgba(30, 41, 59, 0.85);
+
+    backdrop-filter: blur(20px);
+
+    border-radius: 25px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.45);
+
+    animation: welcomeShow 0.6s ease;
+}
+
+@keyframes welcomeShow {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* LOGO */
+
+.welcome-logo {
+    width: 80px;
+    height: 80px;
+
+    margin: auto;
+    margin-bottom: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #7c3aed
+        );
+
+    color: white;
+
+    font-size: 40px;
+    font-weight: bold;
+
+    box-shadow:
+        0 15px 40px rgba(59,130,246,0.3);
+}
+
+
+/* TEXT */
+
+.welcome-small {
+    color: #60a5fa;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+}
+
+.welcome-card h1 {
+    color: white;
+
+    font-size: 45px;
+
+    margin: 8px 0;
+}
+
+.welcome-card h1 span {
+    color: #3b82f6;
+}
+
+.welcome-text {
+    color: #94a3b8;
+
+    margin-bottom: 25px;
+}
+
+
+/* BUTTONS */
+
+.welcome-buttons {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.welcome-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.welcome-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* LOGIN */
+
+.login-btn {
+    background: #3b82f6;
+
+    color: white;
+}
+
+.login-btn:hover {
+    background: #2563eb;
+}
+
+
+/* REGISTER */
+
+.register-btn {
+    background: #6366f1;
+
+    color: white;
+}
+
+.register-btn:hover {
+    background: #4f46e5;
+}
+
+
+/* GUEST */
+
+.guest-btn {
+    background: #475569;
+
+    color: white;
+}
+
+.guest-btn:hover {
+    background: #64748b;
+}
+
+
+/* LIGHT MODE */
+
+body.light-mode .welcome-card {
+    background: rgba(255,255,255,0.9);
+
+    border-color: rgba(15,23,42,0.08);
+
+    box-shadow:
+        0 25px 70px rgba(15,23,42,0.15);
+}
+
+body.light-mode .welcome-card h1 {
+    color: #0f172a;
+}
+
+body.light-mode .welcome-text {
+    color: #64748b;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 550px) {
+
+    .welcome-card {
+        padding: 35px 20px;
+    }
+
+    .welcome-card h1 {
+        font-size: 38px;
+    }
+
+}

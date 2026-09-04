@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Omar Web</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <button id="darkModeToggle" class="dark-btn">
+        🌙 Dark Mode
+    </button>
+
+    <div id="toast"></div>
+
+    <div class="container">
+
+        <form id="loginForm" class="form">
+
+            <div class="logo">O</div>
+
+            <h2>Welcome Back 👋</h2>
+            <p class="subtitle">Login to your account</p>
+
+            <div class="input-box">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                >
+                <small id="userError"></small>
+            </div>
+
+            <div class="input-box">
+                <label for="password">Password</label>
+
+                <div class="password-box">
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                    >
+
+                    <button
+                        type="button"
+                        id="togglePassword"
+                        class="show-btn"
+                    >
+                        Show
+                    </button>
+                </div>
+
+                <small id="passError"></small>
+            </div>
+
+            <label class="remember">
+                <input type="checkbox" id="rememberMe">
+                <span>Remember Me</span>
+            </label>
+
+            <button type="submit" class="login-btn">
+                Login →
+            </button>
+
+            <p id="message"></p>
+
+            <p class="create">
+                Don't have an account?
+                <a href="register.html">Create Account</a>
+            </p>
+
+        </form>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

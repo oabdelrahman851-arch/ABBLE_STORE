@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | Omar Web</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <button id="darkModeToggle" class="dark-btn">
+        ☀️ Light Mode
+    </button>
+
+    <div id="toast"></div>
+
+    <div class="dashboard">
+
+        <!-- PROFILE IMAGE -->
+
+        <div class="profile-container">
+
+            <img
+                id="profileImage"
+                alt="Profile Picture"
+            >
+
+            <label
+                for="profileUpload"
+                class="upload-btn"
+            >
+                📷 Change Photo
+            </label>
+
+            <input
+                type="file"
+                id="profileUpload"
+                accept="image/*"
+                hidden
+            >
+
+            <button
+                id="removePhotoBtn"
+                class="remove-photo"
+            >
+                🗑️ Remove Photo
+            </button>
+
+        </div>
+
+
+        <!-- USER INFO -->
+
+        <h1 id="fullName">
+            Welcome 👋
+        </h1>
+
+        <div class="profile-info">
+
+            <p id="emaile"></p>
+
+            <p id="usernameProfile"></p>
+
+        </div>
+
+
+        <!-- ACCOUNT STATUS -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                Account Status
+            </h3>
+
+            <p>
+                🟢 Your account is active
+            </p>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="dashboard-buttons">
+
+            <button
+                id="editAccountBtn"
+                class="edit-btn"
+            >
+                ✏️ Edit Account
+            </button>
+
+            <button
+                id="logoutBtn"
+                class="logout-btn"
+            >
+                🚪 Logout
+            </button>
+
+        </div>
+
+
+        <!-- EDIT ACCOUNT -->
+
+        <div
+            id="editPanel"
+            class="edit-panel"
+        >
+
+            <h2>
+                Edit Account ✏️
+            </h2>
+
+            <p class="edit-subtitle">
+                Update your account information
+            </p>
+
+
+            <div class="input-box">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="editFullName"
+                    placeholder="Full Name"
+                >
+
+            </div>
+
+
+            <div class="input-box">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="editEmail"
+                    placeholder="Email"
+                >
+
+            </div>
+
+
+            <div class="input-box">
+
+                <label>
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="editUsername"
+                    placeholder="Username"
+                >
+
+            </div>
+
+
+            <div class="input-box">
+
+                <label>
+                    New Password
+                </label>
+
+                <input
+                    type="password"
+                    id="editPassword"
+                    placeholder="Leave empty to keep old password"
+                >
+
+            </div>
+
+
+            <div class="edit-actions">
+
+                <button
+                    id="saveAccountBtn"
+                    class="save-btn"
+                >
+                    💾 Save Changes
+                </button>
+
+                <button
+                    id="cancelEditBtn"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
